@@ -9,13 +9,17 @@
 // ==/UserScript==
 
 (function() {
+    window.setInterval(clear,5000);
     function clear(){
-        var page = document.getElementById("page-livenews");
-    console.log(page==null);
+        var xPath = "/html/body/div/div/main/div/div[1]/div/div[2]/div[1]/div";
+        //var xPath2 = "/html/body/div/div/main/div/div[1]/div/div[2]/div[1]/div";
+      var allNews = _x(xPath).children;
+        //var page = document.getElementById("page-livenews");
+    //console.log(page==null);
    // console.log(page.children[0]);
-    var allNews = page.children[0].children[0].children[1].children[0].children[0].children;
+    //allNews = page.children[0].children[0].children[1].children[0].children[0].children;
     //console.log(allNews==null);
-   // console.log(allNews);
+    console.log(allNews);
     for(var i=0;i<allNews.length;i++){
         var hidden = 0;
         var singleNews = allNews[i];
@@ -54,5 +58,15 @@
         }
     }
     }
-    window.setInterval(clear,10000);
+   function _x(STR_XPATH) {
+    var xresult = document.evaluate(STR_XPATH, document, null, XPathResult.ANY_TYPE, null);
+    var xnodes = [];
+    var xres;
+    while (xres = xresult.iterateNext()) {
+        xnodes.push(xres);
+    };
+     console.log(xnodes);
+     return xnodes[0];
+   }
+
 })();
