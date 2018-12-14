@@ -6,21 +6,17 @@
 // @author       You
 // @match        https://wallstreetcn.com/live/global
 // @grant        none
+// @require      http://code.jquery.com/jquery-1.8.2.js
 // ==/UserScript==
-
-(function() {
+(function(){
     window.setInterval(clear,5000);
     function clear(){
-        var xPath = "/html/body/div/div/main/div/div[1]/div/div[2]/div[1]/div";
-        //var xPath2 = "/html/body/div/div/main/div/div[1]/div/div[2]/div[1]/div";
-      var allNews = _x(xPath).children;
-        //var page = document.getElementById("page-livenews");
-    //console.log(page==null);
-   // console.log(page.children[0]);
-    //allNews = page.children[0].children[0].children[1].children[0].children[0].children;
-    //console.log(allNews==null);
-    console.log(allNews);
-    for(var i=0;i<allNews.length;i++){
+        $(document).ready(function(){
+    $("div").each(function(index , element){
+            if(element.children.length>10){
+                   console.log(element);
+                var allNews = element;
+                for(var i=0;i<allNews.length;i++){
         var hidden = 0;
         var singleNews = allNews[i];
         if(singleNews.style.display=="none"){
@@ -44,6 +40,9 @@
         if(singleNews.innerText.match("上证报")){
             hidden = 1;
         }
+         if(singleNews.innerText.match("上海证券报")){
+            hidden = 1;
+        }
          if(singleNews.innerText.match("中国证券报")){
             hidden = 1;
         }if(singleNews.innerText.match("中国基金报")){
@@ -52,21 +51,19 @@
             hidden = 1;
         }if(singleNews.innerText.match("中国基金业协会")){
             hidden = 1;
+        }if(singleNews.innerText.match("券商中国")){
+            hidden = 1;
+        }if(singleNews.innerText.match("李开复")){
+            hidden = 1;
         }
         if(hidden==1){
             singleNews.style.display = "none";
         }
     }
+            }
+
+    });
+});
     }
-   function _x(STR_XPATH) {
-    var xresult = document.evaluate(STR_XPATH, document, null, XPathResult.ANY_TYPE, null);
-    var xnodes = [];
-    var xres;
-    while (xres = xresult.iterateNext()) {
-        xnodes.push(xres);
-    };
-     console.log(xnodes);
-     return xnodes[0];
-   }
 
 })();

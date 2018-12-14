@@ -22,19 +22,21 @@
     document.onreadystatechange = function(){
     var btn = _x(xPath)[0];
    // console.log(btn);
-    while(btn.innerText.match("+关注")){
+        var count =0;
+        if(window.localStorage.count!=null){
+        count = window.localStorage.count;
+        }
+       if(count<ids.length-1){
+           while(btn.innerText.match("+关注")){
         _x(xPath);
           }
    // console.log("11111");
     if(btn.innerText.match("已关注")){
         console.log("已关注");
-        var count =0;
-        if(window.localStorage.count!=null){
-        count = window.localStorage.count;
-        }
         var url1 = "https://weibo.com/";
         window.localStorage.setItem("count",parseInt(count)+1);
         nowPage = window.open(url1+ids[count], "_self");
+          }
        }
     }
     //window.setInterval( window.onload = function(){
